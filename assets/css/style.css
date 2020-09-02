@@ -1,0 +1,36 @@
+.orange {
+    background-color: #fc7323;
+    color: white;
+}
+
+.orange ul>li>a {
+    color: white;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.orange ul {
+    margin: 0px auto;
+}
+
+.orange button {
+    display: block;
+    color: white;
+    border: 1px solid white;
+    margin: 0px auto;
+}
+
+.green {
+    background-color: rgba(89, 181, 7, 0.8);
+    color: white;
+}
+
+.banner {
+    display: block;
+    height: 100px;
+    margin: 0px auto;
+}
+
+b {
+    margin: 0px auto;
+}
