@@ -1,11 +1,11 @@
-<?php namespace App\Controllers;
+<?php namespace App\Routes;
 
-use App\Controllers\MainController;
+use App\Controllers\RoutesController;
 use App\Controllers\UserRolesController;
 use App\Controllers\CountryController;
 use App\Controllers\CityController;
 
-class HomeController extends MainController {
+class HomeRoutes extends RoutesController {
 
     private $UserRolesController;
     private $CountryController;
@@ -20,26 +20,26 @@ class HomeController extends MainController {
 
     public function index(){
         $data["UserRoles"] = $this->UserRolesController->showAll();
-        parent::loadViews('Home/home', $data);
+        parent::loadViews('Home','/home', $data);
     }
 
     public function SignUp(){
         $data["UserRoles"] = $this->UserRolesController->showAll();
         $data["Countries"] = $this->CountryController->showAll();
         $data["Cities"]    = $this->CityController->showAll();
-        parent::loadViews('Home/SignUp', $data);
+        parent::loadViews('Home','/SignUp', $data);
     }
 
     public function ProductiveStage(){
-        parent::loadViews('Home/ProductiveStage', []);
+        parent::loadViews('Home','/ProductiveStage', []);
     }
 
     public function CenterPrograms(){
-        parent::loadViews('Home/CenterPrograms', []);
+        parent::loadViews('Home','/CenterPrograms', []);
     }
 
     public function QA(){
-        parent::loadViews('Home/QA', []);
+        parent::loadViews('Home','/QA', []);
     }
 }
 

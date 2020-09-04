@@ -15,9 +15,9 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php'))
  * Router Setup
  * --------------------------------------------------------------------
  */
-$routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('HomeController');
-$routes->setDefaultMethod('hello');
+$routes->setDefaultNamespace('App\Routes');
+$routes->setDefaultController('HomeRoutes');
+$routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(true);
@@ -31,19 +31,77 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
+$routes->group('',function($routes){
+	$routes->get('Home',			'HomeRoutes::index');
+	$routes->get('SignUp', 			'HomeRoutes::SignUp');
+	$routes->get('ProductiveStage', 'HomeRoutes::ProductiveStage');
+	$routes->get('CenterPrograms', 	'HomeRoutes::CenterPrograms');
+	$routes->get('QA', 				'HomeRoutes::QA');
+});
 
-$routes->get('/Home', 				'HomeController::index');
-$routes->get('/SignUp', 			'HomeController::SignUp');
-$routes->get('/ProductiveStage', 	'HomeController::ProductiveStage');
-$routes->get('/CenterPrograms', 	'HomeController::CenterPrograms');
-$routes->get('/QA', 				'HomeController::QA');
-$routes->post('/User/create', 		'UsersController::create');
-$routes->post('/Auth/login', 		'AuthController::login');
-$routes->get('/Auth/logout', 		'AuthController::logout');
-/**---------------------------------- */
-//Session Required 
-/**---------------------------------- */
-$routes->get('/Dashboard', 			'DashboardController::index');
+/**
+ * Session Routes
+ */
+
+$DashboardArgs = [
+	'filter'	=> 'SessionFilter'
+];
+$routes->group('Dashboard', 	$DashboardArgs,function($routes){
+	$routes->get('', 				'DashboardRoutes::index');
+});
+
+$routes->group('Aprendiz', 		$DashboardArgs,function($routes){
+	$routes->get('', 				'AprendizRoutes::ActivationToken');
+	$routes->get('ActivationToken', 'AprendizRoutes::ActivationToken');
+	$routes->get('VerifyToken', 	'UsersController::VerifyToken');
+	$routes->get('ProductiveStage', 'HomeRoutes::ProductiveStage');
+	$routes->get('QA', 				'HomeRoutes::QA');
+
+});
+
+$routes->group('Directive', 	$DashboardArgs,function($routes){
+	$routes->get('', 				'DirectiveRoutes::index');
+});
+
+$routes->group('Coordinator', 	$DashboardArgs,function($routes){
+	$routes->get('', 				'CoordinatorRoutes::index');
+});
+
+$routes->group('Leader', 		$DashboardArgs,function($routes){
+	$routes->get('', 				'LeaderRoutes::index');
+});
+
+$routes->group('Subdirector', 	$DashboardArgs,function($routes){
+	$routes->get('', 				'SubdirectorRoutes::index');
+});
+
+$AdminArgs = [
+	'filter'	=> 'AdminFilter'
+];
+$routes->group('Admin', 		$AdminArgs,function($routes){
+	$routes->get('', 				'Routes::index');
+	$routes->get('ActivationToken', 'Routes::ActivationToken');
+	$routes->get('ProductiveStage', 'HomeRoutes::ProductiveStage');
+	$routes->get('QA', 				'HomeRoutes::QA');
+});
+
+/**
+ * Controllers
+ */
+
+$ControllerArgs = [
+	'namespace'	=> 'App\Controllers'
+];
+$routes->group('Auth', 		$ControllerArgs, function($routes){
+	$routes->post('login', 	'AuthController::login');
+	$routes->get('logout', 	'AuthController::logout');
+});
+
+$routes->group('User', 		$ControllerArgs, function($routes){
+	$routes->post('create', 	'UsersController::create');
+	$routes->get('VerifyToken', 'UsersController::VerifyToken');
+});
+
 
 
 /**
