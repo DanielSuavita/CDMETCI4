@@ -4,6 +4,11 @@ $(document).ready(function() {
         'searching': false,
         "lengthChange": false
     });
+    $('#TableBitacorasSubidas').DataTable({
+        'info': false,
+        'searching': false,
+        "lengthChange": false
+    });
     $('#TableVisitas').DataTable({
         'info': false,
         'searching': false,

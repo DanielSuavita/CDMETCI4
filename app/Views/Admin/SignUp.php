@@ -4,7 +4,7 @@
             <form action="./User/create" method="post">
                 <div class="card ">
                     <div class="card-header">
-                        <h3>Registro de Aprendices</h3>
+                        <h3>Registro de Usuario</h3>
                     </div>
                     
                     <div class="card-body green">
@@ -28,10 +28,10 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="col-sm-2" for="">Dirección</label>
-                                    <div class="col-sm-10">
+                                    <label class="col-sm-4" for="">Dirección</label>
+                                    <div class="col-sm-8">
                                         <input class="form-control" type="text" name="Address" placeholder="Dirección del Usuario">
                                     </div>
                                 </div>
@@ -81,8 +81,20 @@
                                 </div>
                             </div>
 
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4" for="">Rol</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" name="idUserRole">
+                                        {UserRoles}
+                                            <option value="{idUserRole}">{Name}</option>
+                                        {/UserRoles}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-md">
-                                <input type="hidden" name="idUserRole" value="1">
                                 <button class="btn btn-block btn-success" type="submit">Crear Usuario</button>
                             </div>
 

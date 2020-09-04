@@ -18,7 +18,6 @@ class UsersController extends MainController implements InterfaceResource
         $this->UserModel        = new UserModel();
         $this->UserEntity       = new UserEntity();
         $this->AuthController   = new AuthController();
-        $this->HomeController   = new HomeController();
     }
 
     public function index(){
@@ -33,6 +32,7 @@ class UsersController extends MainController implements InterfaceResource
     public function create(){
         $data = $this->request->getPost();
         $this->UserEntity->fill($data);
+        $this->UserEntity->Password = $this->AuthController->Encrypt($this->UserEntity->Password);
         $this->UserModel->insert($this->UserEntity);
         return redirect()->to(base_url()."/Home");
     }
@@ -52,6 +52,7 @@ class UsersController extends MainController implements InterfaceResource
     public function update($id = null){
         $data = $this->request->getPost();
         $this->UserEntity->fill($data);
+        $this->UserEntity->Password = $this->AuthController->Encrypt($this->UserEntity->Password);
         $this->UserModel->save($this->UserEntity);
         return redirect()->to(base_url()."/Home");
     }

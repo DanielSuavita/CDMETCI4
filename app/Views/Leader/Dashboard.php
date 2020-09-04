@@ -1,47 +1,48 @@
 
 <section class="container mt-5">
     <div class="row">
-    <div class="col-md-4">
+        <div class="col-md-6">
+            <div id="calendar"></div>
+        </div>
+        <div class="col-md-6">
             <div class="row">
                 <div class="col-md-12">
-                    <h3>Bitácoras Creadas</h3>
-                    <div class="button-group">
-                        <a href="./new" class="btn btn-success"><span class="fas fa-save"></span> Crear</a>
-                        <a href="./new" class="btn btn-success"><span class="fas fa-file"></span> Subir</a>
-                    </div>
-                    
+                    <h3>Bitácoras</h3>
                     <table id="TableBitacoras" class="table table-bordered table-condensed">
                         <thead class="orange">
                             <tr>
-                                <th>N°</th>
-                                <th>Archivo</th>
-                                <th>Acciones</th>
+                                <th>12</th>
+                                <th>123</th>
+                                <th>1234</th>
+                                <th>12123</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>12</td>
-                                <td>12123</td>
+                                <td>123</td>
+                                <td>1234</td>
                                 <td>12123</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="col-md-12">
-                    <h3>Bitácoras Subidas</h3>
-                    
-                    <table id="TableBitacorasSubidas" class="table table-bordered table-condensed">
+                    <h3>Visitas</h3>
+                    <table id="TableVisitas" class="table table-bordered table-condensed">
                         <thead class="orange">
                             <tr>
-                                <th>N°</th>
-                                <th>Archivo</th>
-                                <th>Acciones</th>
+                                <th>12</th>
+                                <th>123</th>
+                                <th>1234</th>
+                                <th>12123</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>12</td>
-                                <td>12123</td>
+                                <td>123</td>
+                                <td>1234</td>
                                 <td>12123</td>
                             </tr>
                         </tbody>
@@ -50,32 +51,6 @@
                 
             </div>
         </div>
-        <div class="col-md-8">
-            <h3>Visitas</h3>
-            <p>Para Solicitar visitas, dale click al día que la necesites</p>
-            <table id="TableVisitas" class="table table-bordered table-condensed">
-                <thead class="orange">
-                    <tr>
-                        <th>N°</th>
-                        <th>Directiva Asignada</th>
-                        <th>Fecha de Visita</th>
-                        <th>Estado</th>
-                        <th>Observaciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>12</td>
-                        <td>123</td>
-                        <td>1234</td>
-                        <td>12123</td>
-                        <td>12123</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div id="calendar"></div>
-        </div>
-        
     </div>
 </section>
 <script src="./assets/js/CDMETAjax.js"></script>
