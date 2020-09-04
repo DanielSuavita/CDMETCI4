@@ -15,16 +15,6 @@
                     <div class="card-body green">
                         <form action="./Auth/login" role="form" method="POST">
                             <div class="form-group row">
-                                <label for="UserRole" class="col-sm-3 col-form-label">Rol</label>
-                                <div class="col-md-9">
-                                    <select class="form-control" name="UserRole">
-                                        {UserRoles}
-                                            <option value="{idUserRole}">{Name}</option>
-                                        {/UserRoles}
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
                                 <label for="Email" class="col-sm-3 col-form-label">Usuario</label>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control" name="Email" placeholder="N° de Documento" required>

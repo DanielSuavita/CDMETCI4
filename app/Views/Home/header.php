@@ -39,7 +39,7 @@
 <img class="banner" src="./assets/img/banner.png"  alt="">
 <nav class="navbar navbar-expand-lg orange">
 	<button class="navbar-toggler justify-content-end" type="button" data-toggle="collapse" data-target="#NavbarHome" aria-controls="NavbarHome" aria-expanded="false" aria-label="Toggle navigation">
-		<span class="fas fa-toggle-on"></span> Menú
+		<span class="fas fa-align-justify"></span> Menú
 	</button>
 	<div class="collapse navbar-collapse" id="NavbarHome">
 		<ul class="navbar-nav justify-content-center mr-auto">
@@ -49,7 +49,7 @@
 			</li>
 			<div class="dropdown-divider"></div>
 			<li class="nav-item">
-				<a class="nav-link" href="./SignUp">Registro</a>
+				<a class="nav-link" href="./SignUp">Registro de Aprendices</a>
 			</li>
 			<div class="dropdown-divider"></div>
 			<li class="nav-item">
