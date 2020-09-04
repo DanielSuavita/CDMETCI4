@@ -2,7 +2,7 @@
 
 use CodeIgniter\Entity;
 
-class UserEntity extends Entity{
+class ProgramEntity extends Entity{
     
 }
 

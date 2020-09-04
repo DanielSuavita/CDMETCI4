@@ -2,7 +2,7 @@
 
 /**
  * clase AuthController
- *  @version 1.0
+ *  @version 1.1
  *  @var $UserModel
  *  @var $UserEntity
  */
@@ -15,6 +15,7 @@ class AuthController extends Controller
 {
     private $UserModel;
     private $UserEntity;
+    private $Session;
 
     /**
      * @method __construct
@@ -24,19 +25,28 @@ class AuthController extends Controller
         helper("URL");
         $this->UserModel    = new UserModel();
         $this->UserEntity   = new UserEntity();
+        $this->Session = session();
+    }
+
+    /**
+     * @method Encrypt
+     * @version 1.0
+     */
+
+    public function Encrypt($Text = ''){
+        return password_hash($Text, PASSWORD_DEFAULT);
     }
 
     /**
      * @method login
-     * @version 1.0
+     * @version 1.1
      */
     public function login(){
         $data = $this->request->getPost();
         $this->UserEntity->fill($data);
-
         if ($this->validateUser($this->UserEntity->Email,$this->UserEntity->Password)) {
-            $this->setSessionData();
-            return redirect()->to(base_url()."/Dashboard");
+            $this->setSessionData($this->UserEntity->Email,$this->UserEntity->Password);
+            return redirect()->to(base_url().'/'.$this->Session->Routing);
         }else{
             return $this->logout();
         }
@@ -47,9 +57,8 @@ class AuthController extends Controller
      * @version 1.0
      */
     public function logout(){
-        $session = session();
-        $session->remove('SessionData');
-        $session->destroy();
+        $this->Session->remove('SessionData');
+        $this->Session->destroy();
 
         return redirect()->to(base_url()."/Home");
     }
@@ -58,65 +67,60 @@ class AuthController extends Controller
      * @method setSessionData
      * @version 1.0
      */
-    private function setSessionData(){
-        $session = session();
+    private function setSessionData($User,$Password){
         $sessiondata = [
             'State'             => '1',
             'ConnectionDate'    => Date('Y-m-d'),
         ];
-        $routing = $this->SelectUserRole($this->UserEntity->Email,$this->UserEntity->Password);
-        $session->set('SessionData', $sessiondata);
-        $session->set('Routing',     $routing);
+        $routing = $this->SelectUserRole($User,$Password);
+        $this->Session->set('SessionData', $sessiondata);
+        $this->Session->set('Routing',     $routing);
     }
 
     /**
      * @method validateUser
-     * @version 1.0
+     * @version 1.2
      */
-    private function validateUser($User,$Password){
-        $stmt1 = "CALL LOGINUSERSELECT ('".$User."','".$Password."',@User); ";
-        $stmt2 = "SELECT @User AS idUserRole";
+    private function validateUser($User, $Password){
 
-        $this->UserModel->transStart();
-        $this->UserModel->query($stmt1);
-        $query = $this->UserModel->query($stmt2)->getRow();
-        $this->UserModel->transComplete();
+        $stmt1 = "CALL VALIDATEPASSWORDSELECT('$User');";
+        $query = $this->UserModel->query($stmt1);
+        $row = $query->getRow()->Password;
 
-        return $query->idUserRole != '';
+        if (password_verify($Password, $row)) {
+            return $query->getRow();
+        }else{
+            return null;
+        }
     }
 
     /**
      * @method SelectUserRole
-     * @version 1.0
+     * @version 1.1
      */
     private function SelectUserRole($User,$Password){
 
-        $stmt1 = "CALL LOGINUSERSELECT ('".$User."','".$Password."',@User); ";
-        $stmt2 = "SELECT @User AS idUserRole";
+        $this->UserEntity = $this->validateUser($User,$Password);
+        if (isset($this->UserEntity->idUserRole)) {
 
-        $this->UserModel->transStart();
-        $this->UserModel->query($stmt1);
-        $query = $this->UserModel->query($stmt2);
-        $this->UserModel->transComplete();
-
-        $this->UserEntity = $query->getRow();
-        switch ($this->UserEntity->idUserRole) {
-
-            case '1': return "Aprendiz/Dashboard";    break;
-            case '2': return "Directive/Dashboard";   break;
-            case '3': return "Coordinator/Dashboard"; break;
-            case '4': return "Leader/Dashboard";      break;
-            case '5': return "Leader/Dashboard";      break;
-            case '6': return "Subdirector/Dashboard"; break;
-            case '7': return "Admin/Dashboard";       break;
-            
-            default:
-                return $this->logout();
+            switch ($this->UserEntity->idUserRole) {
+    
+                case '1': return "Aprendiz";    break;
+                case '2': return "Directive";   break;
+                case '3': return "Coordinator"; break;
+                case '4': return "Leader";      break;
+                case '5': return "Leader";      break;
+                case '6': return "Subdirector"; break;
+                case '7': return "Admin";       break;
+                
+                default:
+                    return $this->logout();
                 break;
+            }
+        }else{
+            return $this->logout();
         }
     }
-
-
 
 }
 
